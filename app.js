@@ -9,4 +9,7 @@ app.use(cookieParser());
 
 app.use('/api/v1/auth', authRouter);
 
+// serve uploaded files
+app.use('/uploads', express.static('uploads'));
+
 module.exports = app;
