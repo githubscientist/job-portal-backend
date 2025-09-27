@@ -104,9 +104,34 @@ const logout = async (req, res) => {
     }
 }
 
+const updateProfile = async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        const updates = req.body;
+
+        // do not allow updating email, password, role through this endpoint
+        delete updates.email;
+        delete updates.password;
+        delete updates.role;
+
+        const user = await User.findByIdAndUpdate(userId, updates, { new: true }).select('-password');
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Profile updated successfully', user });
+    } catch (error) {
+        res.status(500).json({ message: 'Server error' });
+    }
+
+}
+
 module.exports = {
     register,
     login,
     getMe,
-    logout
+    logout,
+    updateProfile
 }

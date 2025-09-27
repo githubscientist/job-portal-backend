@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = require('../utils/config');
+const User = require('../models/User');
 
 const isAuthenticated = async (req, res, next) => {
     // get the toke from the cookies
@@ -22,6 +23,27 @@ const isAuthenticated = async (req, res, next) => {
     }
 }
 
+const allowUsers = (roles) => {
+    return async (req, res, next) => {
+        const user = await User.findById(req.userId);
+
+        if (!user) {
+            return res.status(401).json({ message: 'user not found' });
+        }
+
+        if (!roles.includes(user.role)) {
+            return res.status(403).json({ message: 'access denied' });
+        }
+
+        // attach user to request for further use
+        req.user = user;
+
+        // proceed to next middleware
+        next();
+    }
+}
+
 module.exports = {
-    isAuthenticated
+    isAuthenticated,
+    allowUsers
 };
