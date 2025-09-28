@@ -2,6 +2,7 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET, NODE_ENV } = require('../utils/config');
+const sendEmail = require('../utils/email');
 
 const register = async (req, res) => {
     try {
@@ -29,6 +30,9 @@ const register = async (req, res) => {
         if (!savedUser) {
             return res.status(500).json({ message: 'Failed to register user' });
         }
+
+        // send an welcome email to the user
+        // await sendEmail(email, 'Welcome to Job Portal', `Hello ${name},\n\nWelcome to Job Portal! We're glad to have you on board.\n\nBest regards,\nJob Portal Team`);
 
         res.status(201).json({ message: 'User registered successfully' });
     } catch (error) {
