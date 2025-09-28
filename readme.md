@@ -26,3 +26,41 @@ Admin:
 - Manage recruiters (create, update, view, delete)
 - Manage companies (create, update, view, delete)
 - Assign recruiters to companies
+
+Example Company Create Request:
+
+```json
+{
+  "name": "Tech Innovators Inc.",
+  "description": "A leading company in tech innovation, specializing in AI and machine learning solutions.",
+  "location": "San Francisco, CA",
+  "website": "https://www.techinnovators.com",
+  "industry": "Information Technology",
+  "size": "201-500",
+  "foundedYear": 2010
+}
+```
+
+```json
+{
+  "name": "Health Solutions Ltd.",
+  "description": "A healthcare company focused on providing innovative health tech solutions.",
+  "location": "New York, NY",
+  "website": "https://www.healthsolutions.com",
+  "industry": "Healthcare",
+  "size": "51-200",
+  "foundedYear": 2015
+}
+```
+
+```json
+{
+  "name": "Eco Green Corp.",
+  "description": "A company dedicated to sustainable energy solutions and environmental conservation.",
+  "location": "Austin, TX",
+  "website": "https://www.ecogreencorp.com",
+  "industry": "Renewable Energy",
+  "size": "11-50",
+  "foundedYear": 2018
+}
+```
