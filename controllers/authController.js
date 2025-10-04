@@ -67,13 +67,16 @@ const login = async (req, res) => {
 
         // set the token in the response header for httpOnly cookie
         res.cookie('token', token, {
-            httpOnly: true,
+            httpOnly: NODE_ENV === 'production',
             secure: NODE_ENV === 'production',
             sameSite: NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: 24 * 60 * 60 * 1000 // 24 hours
         });
 
-        res.status(200).json({ message: 'Login successful' });
+        res.status(200).json({
+            message: 'Login successful',
+            user: { id: user._id, name: user.name, email: user.email, role: user.role, profilePicture: user.profilePicture, resume: user.resume }
+        });
     } catch (error) {
         res.status(500).json({ message: 'Server error' });
     }
@@ -83,7 +86,7 @@ const getMe = async (req, res) => {
     try {
         const userId = req.userId;
 
-        const user = await User.findById(userId).select('-password');
+        const user = await User.findById(userId).select('-password').populate('assignedCompany', 'name');
 
         if (!user) {
             return res.status(404).json({ message: 'User not found' });

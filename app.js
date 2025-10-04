@@ -7,6 +7,12 @@ const errorRoute = require('./utils/errorRoute');
 const companyRouter = require('./routes/companyRoutes');
 const jobRouter = require('./routes/jobRoutes');
 const applicationRouter = require('./routes/applicationRoutes');
+const cors = require('cors');
+
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+}))
 
 app.use(logger);
 

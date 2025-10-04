@@ -111,10 +111,20 @@ const createRecruiter = async (req, res) => {
     }
 }
 
+const getAllRecruiters = async (req, res) => {
+    try {
+        const recruiters = await User.find({ role: 'recruiter' }).populate('assignedCompany', 'name');
+        res.status(200).json({ recruiters });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 module.exports = {
     createCompany,
     getAllCompanies,
     updateCompany,
     deleteCompany,
-    createRecruiter
+    createRecruiter,
+    getAllRecruiters
 };

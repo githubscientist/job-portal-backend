@@ -1,6 +1,6 @@
 const express = require('express');
 const { isAuthenticated, allowUsers } = require('../middlewares/auth');
-const { createCompany, getAllCompanies, updateCompany, deleteCompany, createRecruiter } = require('../controllers/adminController');
+const { createCompany, getAllCompanies, updateCompany, deleteCompany, createRecruiter, getAllRecruiters } = require('../controllers/adminController');
 
 const companyRouter = express.Router();
 
@@ -15,5 +15,6 @@ companyRouter.delete('/:id', deleteCompany);
 
 // recruiter management
 companyRouter.post('/recruiters', createRecruiter);
+companyRouter.get('/recruiters', getAllRecruiters);
 
 module.exports = companyRouter;

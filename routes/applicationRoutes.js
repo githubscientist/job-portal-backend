@@ -9,7 +9,7 @@ applicationRouter.use(isAuthenticated);
 
 // user routes
 applicationRouter.post('/:jobId/apply', allowUsers(['user']), applyForJob);
-applicationRouter.get('/applications', allowUsers(['user']), getUserApplications);
+applicationRouter.get('/', allowUsers(['user']), getUserApplications);
 
 // recruiter routes
 applicationRouter.put('/:id/status', allowUsers(['recruiter']), updateApplicationStatus);
